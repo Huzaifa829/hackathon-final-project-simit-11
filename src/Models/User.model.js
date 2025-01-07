@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Userschema = new mongoose.Schema({
   name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true},
   password: { type: String, required: true },
   products: [
     {
@@ -10,7 +10,6 @@ const Userschema = new mongoose.Schema({
       ref: "Product",
     },
   ],
-  // profileImage : {type : String , required : true},
   token: { type: String, default: "" },
   otp: {
     value: { type: String },

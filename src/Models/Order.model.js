@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Order Schema
 const orderSchema = new mongoose.Schema({

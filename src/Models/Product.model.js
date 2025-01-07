@@ -21,7 +21,7 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true, 
     },
-    user: {
+    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User", 
     },
@@ -37,5 +37,5 @@ const ProductSchema = new mongoose.Schema(
   }
 );
 
-export const productModle = mongoose.model("Product" , ProductSchema);
+export const productModle =new mongoose.model("Product" , ProductSchema);
 
