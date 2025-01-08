@@ -14,6 +14,9 @@ app.use(cors());
 
 app.use(express.json());
 
+app.get("/",(req, res) => {
+  res.status(200).json({ message: "Hello from Vercel!" });
+})
 app.use("/api/v1", userroutes);
 app.use("/api/v1", ProductRoutes);
 app.use("/api/v1", ModelRoutes);
