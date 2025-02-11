@@ -95,36 +95,39 @@ export const Signup = async (req, res) => {
       { expiresIn: '1h' },
     );
 
-    // Save token to the user
-    newUser.token = token;
-    await newUser.save();
-    const mailResponse = await sendMail({
-      email: [email],
-      subject: 'Welcome to Our Platform!',
-      htmlTemplate:  `
-      <h1>Welcome, ${name}!</h1>
-      <p>Thank you for signing up. We're excited to have you on board!</p>
-      <p>If you have any questions, feel free to contact us at support@example.com.</p>
-    `,
+    // // Save token to the user
+    // newUser.token = token;
+    // await newUser.save();
+
+    res.cookie('acess_token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
     });
-    if (!mailResponse) {
-      return res
-        .status(500)
-        .json({
-          message: 'Failed to message, please try later',
-          status: 'failed',
-        });
-    }
+
+    // const mailResponse = await sendMail({
+    //   email: [email],
+    //   subject: 'Welcome to Our Platform!',
+    //   htmlTemplate:  `
+    //   <h1>Welcome, ${name}!</h1>
+    //   <p>Thank you for signing up. We're excited to have you on board!</p>
+    //   <p>If you have any questions, feel free to contact us at support@example.com.</p>
+    // `,
+    // });
+    // if (!mailResponse) {
+    //   return res
+    //     .status(500)
+    //     .json({
+    //       message: 'Failed to message, please try later',
+    //       status: 'failed',
+    //     });
+    // }
 
     // Respond with success
     res.status(201).json({
       message: 'User signup successful and welcome email sent',
-      user: {
-        id: newUser._id,
-        name: newUser.name,
-        email: newUser.email,
-        token: newUser.token,
-      },
+      user: newUser,
+      token:token
     });
   } catch (error) {
     console.error('Signup controller error:', error);
